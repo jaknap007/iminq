@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download iminq — Staff &amp; Customer Apps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:       #1B5E3B;
+      --green-mid:   #2E8B57;
+      --green-pale:  #ECFDF5;
+      --green-border:#A7F3D0;
+      --orange:      #F97316;
+      --orange-dark: #EA580C;
+      --dark:        #0F172A;
+      --mid:         #334155;
+      --muted:       #64748B;
+      --bg:          #F8FAFC;
+      --white:       #FFFFFF;
+      --border:      #E2E8F0;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.6; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 64px;
+    }
+    .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; letter-spacing: -0.5px; }
+    .logo .li, .logo .lin { color: var(--orange); }
+    .logo .lm, .logo .lq { color: var(--green); }
+    nav ul { list-style: none; display: flex; gap: 4px; }
+    nav ul a {
+      text-decoration: none; color: var(--mid); font-size: 0.88rem; font-weight: 500;
+      padding: 8px 14px; border-radius: 8px; transition: background 0.15s;
+    }
+    nav ul a:hover { background: var(--bg); color: var(--dark); }
+    .nav-cta { background: var(--orange) !important; color: var(--white) !important; border-radius: 8px !important; font-weight: 700 !important; }
+    .nav-cta:hover { background: var(--orange-dark) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center; padding: 88px 24px 64px;
+      background: var(--white); border-bottom: 1px solid var(--border);
+    }
+    .hero-badge {
+      display: inline-block; background: var(--green-pale); color: var(--green);
+      border: 1px solid var(--green-border);
+      padding: 6px 16px; border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+      margin-bottom: 24px;
+    }
+    h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px; color: var(--dark); }
+    h1 em { font-style: normal; color: var(--green); }
+    .hero-sub { font-size: 1rem; color: var(--muted); max-width: 480px; margin: 0 auto; line-height: 1.75; }
+
+    /* ── APP CARDS ── */
+    .apps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px; max-width: 860px; margin: 56px auto; padding: 0 24px;
+    }
+    .app-card {
+      border-radius: 20px; padding: 40px 32px; text-align: center;
+      border: 1px solid var(--border);
+    }
+    /* Staff card: green identity */
+    .app-card.staff {
+      background: var(--green); color: white;
+    }
+    /* Customer card: dark with orange accent — avoids garish gradient */
+    .app-card.customer {
+      background: var(--dark); color: white;
+      border-color: transparent;
+    }
+    .app-icon { font-size: 3rem; margin-bottom: 14px; }
+    .app-card h2 { font-size: 1.45rem; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
+    .app-card .for { font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.65; margin-bottom: 14px; }
+    .app-card p { font-size: 0.88rem; opacity: 0.82; line-height: 1.7; margin-bottom: 28px; max-width: 280px; margin-left: auto; margin-right: auto; }
+    .orange-accent { color: var(--orange); opacity: 1 !important; }
+
+    .store-buttons { display: flex; flex-direction: column; gap: 10px; }
+    .store-btn {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+      color: white; text-decoration: none; border-radius: 10px; padding: 13px 18px;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .store-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+    .store-btn-icon { font-size: 1.4rem; }
+    .store-btn-text { text-align: left; }
+    .store-btn-text .sub { font-size: 0.68rem; opacity: 0.75; display: block; }
+    .store-btn-text .main { font-size: 0.9rem; font-weight: 700; display: block; }
+    .or-divider { text-align: center; color: rgba(255,255,255,0.35); font-size: 0.78rem; font-weight: 600; margin: 2px 0; }
+
+    /* ── INFO NOTE ── */
+    .info-note {
+      background: var(--green-pale); border: 1px solid var(--green-border); border-radius: 12px;
+      padding: 22px 26px; max-width: 812px; margin: 0 auto 56px; padding-left: 24px; padding-right: 24px;
+      display: flex; gap: 16px; align-items: flex-start;
+      margin-left: 24px; margin-right: 24px;
+    }
+    .info-note-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .info-note h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; color: var(--green); }
+    .info-note p { font-size: 0.83rem; color: var(--mid); line-height: 1.62; }
+
+    /* center info-note */
+    .info-note-wrap { display: flex; justify-content: center; padding: 0 24px; }
+    .info-note-wrap .info-note { margin: 0 0 56px 0; width: 100%; max-width: 812px; }
+
+    /* ── COMPARISON ── */
+    .compare { max-width: 860px; margin: 0 auto 80px; padding: 0 24px; }
+    .compare h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; }
+    .compare-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 28px; }
+    .compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+    }
+    .compare-header {
+      padding: 14px 20px; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    .compare-header.staff-h { background: var(--green-pale); color: var(--green); border-bottom: 1px solid var(--border); }
+    .compare-header.cust-h { background: var(--dark); color: rgba(255,255,255,0.85); border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); }
+    .compare-cell {
+      padding: 13px 20px; font-size: 0.85rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 8px; background: var(--white);
+    }
+    .compare-cell:nth-child(even) { border-left: 1px solid var(--border); }
+    .compare-cell.last { border-bottom: none; }
+    .check-green { color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .check-orange { color: var(--orange); font-weight: 700; flex-shrink: 0; }
+
+    /* ── CTA ── */
+    .cta-section { background: var(--green); color: white; text-align: center; padding: 72px 24px; }
+    .cta-section h2 { color: white; font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .cta-section p { opacity: 0.78; max-width: 440px; margin: 0 auto 32px; font-size: 0.97rem; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 10px; font-size: 0.92rem; font-weight: 600; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-white { background: white; color: var(--green); }
+    .btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.4); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); box-shadow: none; }
+
+    footer { background: var(--dark); color: #94A3B8; padding: 40px 24px; text-align: center; font-size: 0.84rem; }
+    footer a { color: #CBD5E1; text-decoration: none; margin: 0 12px; }
+    footer a:hover { color: white; }
+    .footer-logo { font-size: 1.25rem; font-weight: 800; color: white; margin-bottom: 16px; display: inline-block; }
+    .footer-logo .li, .footer-logo .lin { color: var(--orange); }
+    .footer-logo .lm, .footer-logo .lq { color: #86EFAC; }
+
+    @media (max-width: 640px) {
+      nav ul { display: none; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .compare-cell:nth-child(even) { border-left: none; }
+      .compare-header.cust-h { border-left: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html"><span class="li">i</span><span class="lm">m</span><span class="lin">in</span><span class="lq">q</span></a>
+  <ul>
+    <li><a href="for-restaurants.html">For Restaurants</a></li>
+    <li><a href="for-customers.html">For Customers</a></li>
+    <li><a href="download.html" class="nav-cta">Get the App</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Free to Download</div>
+  <h1>Two apps. <em>One seamless</em> experience.</h1>
+  <p class="hero-sub">
+    The iminq Staff App for your team, and the iminq Customer App for your guests —
+    both free, both real-time, both built to make every service run smoothly.
+  </p>
+</section>
+
+<!-- APP CARDS -->
+<div class="apps">
+  <div class="app-card staff">
+    <div class="app-icon">👨‍🍳</div>
+    <div class="for">For Restaurant Teams</div>
+    <h2>Staff App</h2>
+    <p>Manage orders, update kitchen status, handle payments, and run your floor from a single app.</p>
+    <div class="store-buttons">
+      <a href="#" class="store-btn">
+        <div class="store-btn-icon">🍏</div>
+        <div class="store-btn-text">
+          <span class="sub">Download on the</span>
+          <span class="main">App Store</span>
+        </div>
+      </a>
+      <div class="or-divider">— or —</div>
+      <a href="#" class="store-btn">
+        <div class="store-btn-icon">🤖</div>
+        <div class="store-btn-text">
+          <span class="sub">Get it on</span>
+          <span class="main">Google Play</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="app-card customer">
+    <div class="app-icon">🛍️</div>
+    <div class="for">For Restaurant Guests</div>
+    <h2>Customer App</h2>
+    <p>Browse menus, place orders, pay in seconds, and track your food live — at any iminq restaurant.</p>
+    <div class="store-buttons">
+      <a href="#" class="store-btn">
+        <div class="store-btn-icon">🍏</div>
+        <div class="store-btn-text">
+          <span class="sub">Download on the</span>
+          <span class="main">App Store</span>
+        </div>
+      </a>
+      <div class="or-divider">— or —</div>
+      <a href="#" class="store-btn">
+        <div class="store-btn-icon">🤖</div>
+        <div class="store-btn-text">
+          <span class="sub">Get it on</span>
+          <span class="main">Google Play</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- INFO NOTE -->
+<div class="info-note-wrap">
+  <div class="info-note">
+    <div class="info-note-icon">💡</div>
+    <div>
+      <h4>Guests don't need to install anything</h4>
+      <p>Any iminq restaurant's menu opens directly in the phone browser after scanning the table QR code — no install, no sign-up. The Customer App is optional but adds order history, faster reordering, and live push notifications.</p>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARISON -->
+<div class="compare">
+  <h2>What's in each app?</h2>
+  <p class="compare-sub">A quick look at what each app does for its users.</p>
+  <div class="compare-grid">
+    <div class="compare-header staff-h">Staff App</div>
+    <div class="compare-header cust-h">Customer App</div>
+
+    <div class="compare-cell"><span class="check-green">✓</span> Receive &amp; manage live orders</div>
+    <div class="compare-cell"><span class="check-orange">✓</span> Browse live restaurant menus</div>
+
+    <div class="compare-cell"><span class="check-green">✓</span> Kitchen display — mark items ready</div>
+    <div class="compare-cell"><span class="check-orange">✓</span> Place orders without a waiter</div>
+
+    <div class="compare-cell"><span class="check-green">✓</span> Update order status in real-time</div>
+    <div class="compare-cell"><span class="check-orange">✓</span> Live order status tracking</div>
+
+    <div class="compare-cell"><span class="check-green">✓</span> Process payments &amp; collect cash</div>
+    <div class="compare-cell"><span class="check-orange">✓</span> Pay via UPI, card, or cash</div>
+
+    <div class="compare-cell"><span class="check-green">✓</span> Multi-role access (owner / kitchen / service)</div>
+    <div class="compare-cell"><span class="check-orange">✓</span> Order history &amp; past visits</div>
+
+    <div class="compare-cell last"><span class="check-green">✓</span> Menu management &amp; instant updates</div>
+    <div class="compare-cell last"><span class="check-orange">✓</span> Reorder favourites with one tap</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to get started?</h2>
+  <p>Download iminq for free and transform the way your restaurant handles orders and service.</p>
+  <div class="btn-group">
+    <a href="#" class="btn btn-white">Staff App — Download</a>
+    <a href="#" class="btn btn-outline">Customer App — Download</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><span class="li">i</span><span class="lm">m</span><span class="lin">in</span><span class="lq">q</span></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="for-restaurants.html">Restaurants</a>
+    <a href="for-customers.html">Customers</a>
+    <a href="download.html">Download</a>
+  </div>
+  <p style="margin-top:20px">&copy; 2025 iminq. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

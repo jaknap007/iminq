@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iminq for Restaurants — Contactless Ordering Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #1B5E3B;
+      --green-mid:    #2E8B57;
+      --green-pale:   #ECFDF5;
+      --green-border: #A7F3D0;
+      --orange:       #F97316;
+      --orange-dark:  #EA580C;
+      --dark:         #0F172A;
+      --mid:          #334155;
+      --muted:        #64748B;
+      --bg:           #F8FAFC;
+      --white:        #FFFFFF;
+      --border:       #E2E8F0;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.6; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px;
+    }
+    .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; letter-spacing: -0.5px; }
+    .logo .li, .logo .lin { color: var(--orange); }
+    .logo .lm, .logo .lq  { color: var(--green); }
+    nav ul { list-style: none; display: flex; gap: 4px; }
+    nav ul a {
+      text-decoration: none; color: var(--mid); font-size: 0.88rem; font-weight: 500;
+      padding: 8px 14px; border-radius: 8px; transition: background 0.15s;
+    }
+    nav ul a:hover { background: var(--bg); color: var(--dark); }
+    nav ul a.active { font-weight: 700; color: var(--green); }
+    .nav-cta { background: var(--orange) !important; color: var(--white) !important; border-radius: 8px !important; }
+    .nav-cta:hover { background: var(--orange-dark) !important; }
+
+    /* ── HERO split ── */
+    .hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 580px;
+      background: var(--green-pale);
+      border-bottom: 1px solid var(--green-border);
+    }
+    .hero-content {
+      padding: 80px 48px 80px 64px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .hero-badge {
+      display: inline-block; background: var(--white);
+      border: 1px solid var(--green-border); color: var(--green);
+      padding: 6px 16px; border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+      margin-bottom: 24px; width: fit-content;
+    }
+    h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 20px; line-height: 1.13; color: var(--dark); }
+    h1 em { font-style: normal; color: var(--green); }
+    .hero-sub { font-size: 1rem; color: var(--mid); max-width: 460px; margin-bottom: 36px; line-height: 1.75; }
+    .hero-image { position: relative; overflow: hidden; }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+    /* ── BUTTONS ── */
+    .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: 10px; font-size: 0.92rem; font-weight: 600;
+      text-decoration: none; transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+    .btn-primary  { background: var(--green); color: var(--white); }
+    .btn-primary:hover { background: var(--green-mid); }
+    .btn-secondary { background: var(--white); color: var(--dark); border: 1px solid var(--border); }
+
+    /* ── SHARED ── */
+    .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; }
+    .section-sub { font-size: 0.97rem; color: var(--muted); max-width: 500px; line-height: 1.72; }
+
+    /* ── PAIN POINTS ── */
+    .pain { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .pain .inner { max-width: 1100px; margin: 0 auto; padding: 72px 24px; }
+    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 40px; }
+    .pain-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px 20px;
+    }
+    .pain-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .pain-card h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 6px; }
+    .pain-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.62; }
+
+    /* ── BENEFITS — split layout ── */
+    .benefits-wrap {
+      max-width: 1100px; margin: 0 auto; padding: 80px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+    }
+    .benefits-image { border-radius: 20px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.1); position: sticky; top: 88px; }
+    .benefits-image img { width: 100%; display: block; height: 520px; object-fit: cover; }
+    .benefits-right { }
+    .benefits-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .benefit {
+      display: flex; gap: 16px; background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 18px; align-items: flex-start;
+    }
+    .benefit-icon {
+      width: 42px; height: 42px; border-radius: 10px; background: var(--green-pale);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .benefit h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+    .benefit p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── ROLES ── */
+    .roles { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .roles-wrap {
+      max-width: 1100px; margin: 0 auto; padding: 80px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .roles-image { border-radius: 20px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.1); }
+    .roles-image img { width: 100%; display: block; height: 440px; object-fit: cover; }
+    .role-cards { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .role-card {
+      border-radius: 14px; padding: 22px 22px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-left: 4px solid transparent;
+    }
+    .role-card.owner   { border-left-color: var(--green); }
+    .role-card.kitchen { border-left-color: var(--orange); }
+    .role-card.service { border-left-color: #3B82F6; }
+    .role-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; color: var(--muted); }
+    .role-card h3 { font-size: 0.97rem; font-weight: 700; margin-bottom: 10px; }
+    .role-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .role-card ul li { font-size: 0.82rem; color: var(--mid); display: flex; gap: 10px; line-height: 1.5; }
+    .role-card ul li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* ── SETUP ── */
+    .setup-section { max-width: 1100px; margin: 0 auto; padding: 80px 24px; }
+    .setup-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; margin-top: 48px; }
+    .setup-step { padding: 28px 20px; text-align: center; position: relative; }
+    .setup-step:not(:last-child)::after {
+      content: '→'; position: absolute; right: -8px; top: 44px;
+      font-size: 1.2rem; color: var(--border);
+    }
+    .step-circle {
+      width: 52px; height: 52px; border-radius: 50%; background: var(--green);
+      color: white; font-weight: 800; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+    }
+    .setup-step h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 6px; }
+    .setup-step p { font-size: 0.81rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── CTA ── */
+    .cta-section { background: var(--green); color: white; text-align: center; padding: 80px 24px; }
+    .cta-section h2 { color: white; margin-bottom: 14px; }
+    .cta-section p { opacity: 0.8; max-width: 460px; margin: 0 auto 36px; font-size: 1rem; }
+    .btn-white   { background: white; color: var(--green); }
+    .btn-white:hover { background: var(--green-pale); }
+    .btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.4); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); box-shadow: none; }
+
+    footer { background: var(--dark); color: #94A3B8; padding: 40px 24px; text-align: center; font-size: 0.84rem; }
+    footer a { color: #CBD5E1; text-decoration: none; margin: 0 12px; }
+    footer a:hover { color: white; }
+    .footer-logo { font-size: 1.25rem; font-weight: 800; color: white; margin-bottom: 16px; display: inline-block; }
+    .footer-logo .li, .footer-logo .lin { color: var(--orange); }
+    .footer-logo .lm, .footer-logo .lq  { color: #86EFAC; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-content { padding: 60px 28px; }
+      .hero-image { height: 300px; order: -1; }
+      .benefits-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .benefits-image { display: none; }
+      .roles-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .roles-image { display: none; }
+    }
+    @media (max-width: 640px) {
+      nav ul { display: none; }
+      .setup-step:not(:last-child)::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html"><span class="li">i</span><span class="lm">m</span><span class="lin">in</span><span class="lq">q</span></a>
+  <ul>
+    <li><a href="for-restaurants.html" class="active">For Restaurants</a></li>
+    <li><a href="for-customers.html">For Customers</a></li>
+    <li><a href="download.html" class="nav-cta">Get the App</a></li>
+  </ul>
+</nav>
+
+<!-- HERO — split -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🍽️ For Restaurant Owners &amp; Staff</div>
+    <h1>Faster service, fewer complaints —<br /><em>even during the busiest hours</em></h1>
+    <p class="hero-sub">
+      iminq keeps your service running smoothly no matter how packed the floor gets.
+      Guests order themselves, orders go straight to the kitchen, and your team focuses on delivering great food.
+    </p>
+    <div class="btn-group">
+      <a href="download.html" class="btn btn-primary">Download Staff App</a>
+      <a href="for-customers.html" class="btn btn-secondary">See Customer View</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img
+      src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=900&q=80"
+      alt="Restaurant in full service with staff attending to guests"
+    />
+  </div>
+</section>
+
+<!-- PAIN POINTS -->
+<div class="pain">
+  <div class="inner">
+    <div class="section-label">The Problem</div>
+    <h2>Where restaurants lose time every day</h2>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">😤</div>
+        <h4>Guests waiting to order</h4>
+        <p>During peak hours, guests wait too long just to get someone's attention. That frustration shows up in reviews.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">📝</div>
+        <h4>Order errors &amp; mishearing</h4>
+        <p>Handwritten or verbal orders get misread. Wrong dishes waste kitchen time and disappoint guests.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">⏱️</div>
+        <h4>Slow table turnaround</h4>
+        <p>Waiting to order, then waiting for the bill — adds 10–15 unnecessary minutes to every table's stay.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🖨️</div>
+        <h4>Outdated printed menus</h4>
+        <p>Reprinting menus every time a price or item changes is expensive, slow, and easy to forget.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS — split with image -->
+<div class="benefits-wrap">
+  <div class="benefits-image">
+    <img
+      src="https://images.unsplash.com/photo-1581299894007-aaa50297cf16?auto=format&fit=crop&w=700&q=80"
+      alt="Restaurant kitchen team working efficiently during service"
+    />
+  </div>
+  <div class="benefits-right">
+    <div class="section-label">The iminq Difference</div>
+    <h2>How iminq keeps your service smooth</h2>
+    <p class="section-sub">From the moment a guest sits down to the moment they leave, iminq removes every bottleneck.</p>
+    <div class="benefits-grid">
+      <div class="benefit">
+        <div class="benefit-icon">📲</div>
+        <div>
+          <h4>Guests order themselves</h4>
+          <p>A QR scan opens your live menu. Guests browse, customise, and place orders — your team just delivers.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">⚡</div>
+        <div>
+          <h4>Orders go straight to the kitchen</h4>
+          <p>No relay through a waiter, no miscommunication. Orders appear on the kitchen display instantly.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">💳</div>
+        <div>
+          <h4>Multiple payment options</h4>
+          <p>Razorpay, UPI, or cash. Guests pay at the table or at the counter — whichever you prefer.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">🗂️</div>
+        <div>
+          <h4>Update your menu instantly</h4>
+          <p>Change a price, mark an item sold out, or add a daily special — live in seconds, no reprinting.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">📊</div>
+        <div>
+          <h4>Full order visibility</h4>
+          <p>See every live order, track status across tables, and monitor your floor from one dashboard.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">🔄</div>
+        <div>
+          <h4>Faster table turnover</h4>
+          <p>Self-ordering and instant payment cut dead time. Serve more covers in the same hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROLES — split with image -->
+<div class="roles">
+  <div class="roles-wrap">
+    <div>
+      <div class="section-label">Built for Every Role</div>
+      <h2>One platform, every person on your team</h2>
+      <p class="section-sub">iminq gives each role exactly what they need — no clutter, no confusion.</p>
+      <div class="role-cards">
+        <div class="role-card owner">
+          <div class="role-title">Restaurant Owner / Manager</div>
+          <h3>Full control, full visibility</h3>
+          <ul>
+            <li>Live order and revenue dashboard</li>
+            <li>Menu management — instant updates</li>
+            <li>Payment gateway configuration</li>
+            <li>Multi-location support</li>
+            <li>Settlement and billing reports</li>
+          </ul>
+        </div>
+        <div class="role-card kitchen">
+          <div class="role-title">Kitchen Staff</div>
+          <h3>No paper, no confusion</h3>
+          <ul>
+            <li>Orders appear instantly on screen</li>
+            <li>Mark items as ready with one tap</li>
+            <li>Clear item-by-item breakdown</li>
+            <li>Works on any tablet or phone</li>
+          </ul>
+        </div>
+        <div class="role-card service">
+          <div class="role-title">Service Staff</div>
+          <h3>Focus on service, not admin</h3>
+          <ul>
+            <li>See which tables have placed orders</li>
+            <li>Mark orders delivered from the app</li>
+            <li>Real-time sync with kitchen</li>
+            <li>Handle payment collection easily</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="roles-image">
+      <img
+        src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=700&q=80"
+        alt="Elegant restaurant dining room during evening service"
+      />
+    </div>
+  </div>
+</div>
+
+<!-- SETUP -->
+<div class="setup-section">
+  <div class="section-label">Getting Started</div>
+  <h2>Up and running in under 30 minutes</h2>
+  <p class="section-sub">No hardware to install, no IT team needed. Just your phone and iminq.</p>
+  <div class="setup-steps">
+    <div class="setup-step">
+      <div class="step-circle">1</div>
+      <h4>Download the App</h4>
+      <p>Install the iminq Staff App on your phone or tablet.</p>
+    </div>
+    <div class="setup-step">
+      <div class="step-circle">2</div>
+      <h4>Add Your Menu</h4>
+      <p>Enter your items, prices, and photos from the dashboard.</p>
+    </div>
+    <div class="setup-step">
+      <div class="step-circle">3</div>
+      <h4>Print QR Codes</h4>
+      <p>Generate and print per-table QR codes — one per table.</p>
+    </div>
+    <div class="setup-step">
+      <div class="step-circle">4</div>
+      <h4>Start Serving</h4>
+      <p>Guests scan, orders flow — you're live.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready for smooth service on every shift?</h2>
+  <p>Download the iminq staff app and put an end to long waits and avoidable complaints.</p>
+  <div class="btn-group" style="justify-content:center;">
+    <a href="download.html" class="btn btn-white">Download Staff App</a>
+    <a href="for-customers.html" class="btn btn-outline">See Customer Experience</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><span class="li">i</span><span class="lm">m</span><span class="lin">in</span><span class="lq">q</span></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="for-restaurants.html">Restaurants</a>
+    <a href="for-customers.html">Customers</a>
+    <a href="download.html">Download</a>
+  </div>
+  <p style="margin-top:20px">&copy; 2025 iminq. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
